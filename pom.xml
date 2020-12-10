@@ -20,7 +20,7 @@
 		<module>jeecg-boot-base-common</module>
 		<module>jeecg-boot-base-api</module>
 		<module>jeecg-boot-module-system</module>
-		<module>jeecg-boot-module-demo</module>
+		<!--<module>jeecg-boot-module-demo</module>-->
 		<module>jeecg-cloud-module</module>
 	</modules>
 
