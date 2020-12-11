@@ -10,8 +10,6 @@
 
 	<artifactId>jeecg-boot-module-system</artifactId>
 
-
-
 	<dependencies>
 		<!-- jeecg base api -->
 		<dependency>

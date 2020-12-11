@@ -231,15 +231,6 @@
 			<artifactId>commons-pool2</artifactId>
 		</dependency>
 
-		<!--&lt;!&ndash; 代码生成器 &ndash;&gt;-->
-		<!--&lt;!&ndash; 如下载失败，请参考此文档  http://doc.jeecg.com/1273965 &ndash;&gt;-->
-		<!--<dependency>-->
-			<!--<groupId>org.jeecgframework.boot</groupId>-->
-			<!--<artifactId>codegenerate</artifactId>-->
-			<!--<version>1.2.2</version>-->
-		<!--</dependency>-->
-
-		<!-- AutoPoi Excel工具类-->
 		<dependency>
 			<groupId>org.jeecgframework</groupId>
 			<artifactId>autopoi-web</artifactId>
