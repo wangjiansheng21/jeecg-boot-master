@@ -15,11 +15,4 @@
     <modules>
         <module>jeecg-system-local-api</module>
     </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.jeecgframework.boot</groupId>
-            <artifactId>jeecg-boot-base-common</artifactId>
-        </dependency>
-    </dependencies>
 </project>

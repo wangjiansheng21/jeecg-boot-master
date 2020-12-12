@@ -10,5 +10,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jeecg-system-local-api</artifactId>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.jeecgframework.boot</groupId>
+            <artifactId>jeecg-boot-base-common</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+    </dependencies>
 </project>

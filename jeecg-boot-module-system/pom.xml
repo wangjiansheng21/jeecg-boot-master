@@ -11,10 +11,11 @@
 	<artifactId>jeecg-boot-module-system</artifactId>
 
 	<dependencies>
-		<!-- jeecg base api -->
+		<!-- system 单体 api -->
 		<dependency>
 			<groupId>org.jeecgframework.boot</groupId>
 			<artifactId>jeecg-system-local-api</artifactId>
+			<version>${jeecgboot.version}</version>
 		</dependency>
 
 	</dependencies>
