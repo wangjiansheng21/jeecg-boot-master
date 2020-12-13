@@ -1,5 +1,6 @@
 package org.jeecg.modules.system.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -8,6 +9,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.formula.functions.T;
+import org.jee.dubbo.response.RpcResponse;
+import org.jee.user.api.UserApi;
+import org.jee.user.api.request.UserQueryRequest;
+import org.jee.user.api.response.UserResponse;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.aspect.annotation.AutoLog;
 import org.jeecg.common.constant.CommonConstant;
@@ -49,6 +54,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/sys/position")
 public class SysPositionController {
+
+    @Reference
+    UserApi userApi;
 
     @Autowired
     private ISysPositionService sysPositionService;
@@ -174,6 +182,8 @@ public class SysPositionController {
     @GetMapping(value = "/queryById")
     public Result<SysPosition> queryById(@RequestParam(name = "id", required = true) String id) {
         Result<SysPosition> result = new Result<SysPosition>();
+        UserQueryRequest userQueryRequest=new UserQueryRequest();
+        RpcResponse<List<UserResponse>> response = userApi.getUserList(userQueryRequest);
         SysPosition sysPosition = sysPositionService.getById(id);
         if (sysPosition == null) {
             result.error500("未找到对应实体");
@@ -181,6 +191,7 @@ public class SysPositionController {
             result.setResult(sysPosition);
             result.setSuccess(true);
         }
+
         return result;
     }
 

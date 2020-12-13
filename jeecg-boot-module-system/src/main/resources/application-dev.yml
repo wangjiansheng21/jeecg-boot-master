@@ -16,20 +16,6 @@ management:
     include: metrics,httptrace
 
 spring:
-  dubbo:
-    protocol:
-      name: dubbo
-      accesslog: false
-      port: 12823
-    application:
-      name: pms-dubbo-provider
-      logger: slf4j
-    provider:
-      filter: dubboLogFilter
-    server: true
-    registry:
-      protocol: zookeeper
-      address: 127.0.0.1:2181 #zookeeper://127.0.0.1:2181
   servlet:
      multipart:
         max-file-size: 10MB
@@ -242,4 +228,20 @@ cas:
 #enable swagger
 swagger:
   enable: true
+dubbo:
+  protocol:
+    name: dubbo
+    accesslog: false
+    port: 12823
+  application:
+    name: pms-dubbo-provider
+    logger: slf4j
+  provider:
+    filter: dubboLogFilter
+  server: true
+  registry:
+    protocol: zookeeper
+    address: 127.0.0.1:2181 #zookeeper://127.0.0.1:2181
+  consumer:
+    check: false
 

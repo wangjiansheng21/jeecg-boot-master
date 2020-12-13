@@ -74,4 +74,33 @@
             </resource>
         </resources>
     </build>
+    <repositories>
+        <!--<repository>-->
+        <!--<id>aliyun</id>-->
+        <!--<name>aliyun Repository</name>-->
+        <!--<url>http://maven.aliyun.com/nexus/content/groups/public</url>-->
+        <!--<snapshots>-->
+        <!--<enabled>false</enabled>-->
+        <!--</snapshots>-->
+        <!--</repository>-->
+        <!--<repository>-->
+        <!--<id>jeecg</id>-->
+        <!--<name>jeecg Repository</name>-->
+        <!--<url>http://maven.jeecg.org/nexus/content/repositories/jeecg</url>-->
+        <!--<snapshots>-->
+        <!--<enabled>false</enabled>-->
+        <!--</snapshots>-->
+        <!--</repository>-->
+        <repository>
+        <id>nexus</id>
+        <name>Nexus Repository</name>
+        <url>http://8.133.160.19:8081/nexus/content/groups/public</url>
+        <releases>
+        <enabled>true</enabled>
+        </releases>
+        <snapshots>
+        <enabled>true</enabled>
+        </snapshots>
+        </repository>
+    </repositories>
 </project>
