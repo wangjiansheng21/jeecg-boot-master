@@ -1,6 +1,6 @@
 package org.jeecg;
 
-import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.Context;
 import org.apache.tomcat.util.scan.StandardJarScanner;
@@ -19,7 +19,6 @@ import java.net.UnknownHostException;
 
 @Slf4j
 @SpringBootApplication
-@EnableDubbo
 public class JeecgSystemApplication extends SpringBootServletInitializer {
 
     @Override
