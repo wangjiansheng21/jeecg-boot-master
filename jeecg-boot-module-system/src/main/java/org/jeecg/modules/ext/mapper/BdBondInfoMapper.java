@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.jeecg.modules.ext.entity.BdBondInfo;
 import org.jeecg.modules.ext.query.BondInfoQuery;
 import org.jeecg.modules.ext.query.SpInfoStaticsQuery;
+import org.jeecg.modules.ext.vo.BondInfoVO;
 import org.jeecg.modules.ext.vo.SpInfoStaticsVO;
 
 import java.util.List;
@@ -25,5 +26,5 @@ public interface BdBondInfoMapper extends BaseMapper<BdBondInfo> {
 
     Long getBondInfoCount(BondInfoQuery bondInfoQuery);
 
-    List<SpInfoStaticsVO> getBondInfoList(BondInfoQuery bondInfoQuery);
+    List<BondInfoVO> getBondInfoList(BondInfoQuery bondInfoQuery);
 }

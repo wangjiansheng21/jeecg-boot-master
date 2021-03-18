@@ -16,6 +16,7 @@ import org.jeecg.modules.ext.mapper.BdSpInfoMapper;
 import org.jeecg.modules.ext.query.BondInfoQuery;
 import org.jeecg.modules.ext.query.SpInfoStaticsQuery;
 import org.jeecg.modules.ext.service.IBdBondInfoService;
+import org.jeecg.modules.ext.vo.BondInfoVO;
 import org.jeecg.modules.ext.vo.SpInfoStaticsVO;
 import org.jeecgframework.poi.excel.ExcelImportUtil;
 import org.jeecgframework.poi.excel.entity.ImportParams;
@@ -145,15 +146,15 @@ public class BdBondInfoServiceImpl extends ServiceImpl<BdBondInfoMapper, BdBondI
 
     @Override
     public Result<?> getBondInfoList(BondInfoQuery bondInfoQuery) {
-        log.info("getBondInfoList:{}", bondInfoQuery);
+        log.info("getBondInfoList:{}", bondInfoQuery.toString());
         Result result = new Result();
         IPage page = new Page(bondInfoQuery.getPageNo(), bondInfoQuery.getPageSize());
         Long count = bdBondInfoMapper.getBondInfoCount(bondInfoQuery);
-        page.setTotal(count);
         //分页查询
-        List<SpInfoStaticsVO> spInfoStaticsList = bdBondInfoMapper.getBondInfoList(bondInfoQuery);
-        page.setRecords(spInfoStaticsList);
+        List<BondInfoVO> bdBondInfoMapperBondInfoList = bdBondInfoMapper.getBondInfoList(bondInfoQuery);
+        page.setRecords(bdBondInfoMapperBondInfoList);
         page.setCurrent(bondInfoQuery.getPageNo());
+        page.setTotal(count);
         result.setResult(page);
         return result;
     }
