@@ -40,7 +40,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         try {
-            executeLogin(request, response);
+//            executeLogin(request, response);
             return true;
         } catch (Exception e) {
             throw new AuthenticationException("Token失效，请重新登录", e);
