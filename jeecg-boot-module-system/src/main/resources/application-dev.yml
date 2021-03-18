@@ -138,18 +138,18 @@ spring:
           #password: root
           #driver-class-name: com.mysql.cj.jdbc.Driver
   #redis 配置
-  redis:
-    database: 0
-    host: 8.133.160.19
-    lettuce:
-      pool:
-        max-active: 8   #最大连接数据库连接数,设 0 为没有限制
-        max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
-        max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
-        min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
-      shutdown-timeout: 100ms
-    password: ''
-    port: 6379
+#  redis:
+#    database: 0
+#    host: 8.133.160.19
+#    lettuce:
+#      pool:
+#        max-active: 8   #最大连接数据库连接数,设 0 为没有限制
+#        max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
+#        max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+#        min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
+#      shutdown-timeout: 100ms
+#    password: ''
+#    port: 6379
 #mybatis plus 设置
 mybatis-plus:
   mapper-locations: classpath*:org/jeecg/modules/**/xml/*Mapper.xml
@@ -163,7 +163,7 @@ mybatis-plus:
       table-underline: true
   configuration:
     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
-    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 返回类型为Map,显示null对应的字段
     call-setters-on-nulls: true
 #jeecg专用配置

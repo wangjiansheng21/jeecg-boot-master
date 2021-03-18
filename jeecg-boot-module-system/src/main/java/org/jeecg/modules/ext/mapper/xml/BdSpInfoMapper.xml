@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.ext.dao.BdSpInfoDao">
+
+    <resultMap id="BaseResultMap" type="org.jeecg.modules.ext.entity.BdSpInfo">
+        <!--@Table bd_sp_info-->
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="spName" column="sp_name" jdbcType="VARCHAR"/>
+        <result property="industry" column="industry" jdbcType="VARCHAR"/>
+        <result property="enterpriseNature" column="enterprise_nature" jdbcType="VARCHAR"/>
+        <result property="bondBalance" column="bond_balance" jdbcType="VARCHAR"/>
+        <result property="latestIssuanceDate" column="latest_issuance_date" jdbcType="TIMESTAMP"/>
+        <result property="latestBondIssueCode" column="latest_bond_issue_code" jdbcType="VARCHAR"/>
+        <result property="latestRating" column="latest_rating" jdbcType="VARCHAR"/>
+        <result property="ratingDate" column="rating_date" jdbcType="TIMESTAMP"/>
+        <result property="mainBusinessIncome" column="main_business_income" jdbcType="VARCHAR"/>
+        <result property="reportingPeriod" column="reporting_period" jdbcType="TIMESTAMP"/>
+        <result property="netWorth" column="net_worth" jdbcType="VARCHAR"/>
+        <result property="netWorthReportingPeriod" column="net_worth_reporting_period" jdbcType="TIMESTAMP"/>
+        <result property="province" column="province" jdbcType="VARCHAR"/>
+        <result property="city" column="city" jdbcType="VARCHAR"/>
+        <result property="listed" column="listed" jdbcType="VARCHAR"/>
+        <result property="buildDate" column="build_date" jdbcType="VARCHAR"/>
+        <result property="registeredCapital" column="registered_capital" jdbcType="VARCHAR"/>
+        <result property="numberEmployees" column="number_employees" jdbcType="INTEGER"/>
+        <result property="companyProfile" column="company_profile" jdbcType="VARCHAR"/>
+        <result property="largestStockholder" column="largest_stockholder" jdbcType="VARCHAR"/>
+        <result property="natureShareholders" column="nature_shareholders" jdbcType="VARCHAR"/>
+        <result property="registeredAddress" column="registered_address" jdbcType="VARCHAR"/>
+        <result property="businessAddress" column="business_address" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="fax" column="fax" jdbcType="VARCHAR"/>
+        <result property="websiteAddress" column="website_address" jdbcType="VARCHAR"/>
+        <result property="industry1" column="industry_1" jdbcType="VARCHAR"/>
+        <result property="industry2" column="industry_2" jdbcType="VARCHAR"/>
+        <result property="industry3" column="industry_3" jdbcType="VARCHAR"/>
+        <result property="industry4" column="industry_4" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+        <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--&lt;!&ndash;查询单个&ndash;&gt;-->
+    <!--<select id="queryById" resultMap="BaseResultMap">-->
+        <!--select-->
+          <!--id, sp_name, industry, enterprise_nature, bond_balance, latest_issuance_date, latest_bond_issue_code, latest_rating, rating_date, main_business_income, reporting_period, net_worth, net_worth_reporting_period, province, city, listed, build_date, registered_capital, number_employees, company_profile, largest_stockholder, nature_shareholders, registered_address, business_address, mobile, fax,  website_address, industry_1, industry_2, industry_3, industry_4, created_time, updated_time-->
+        <!--from jeecg-boot.bd_sp_info-->
+        <!--where id = #{id}-->
+    <!--</select>-->
+
+    <!--&lt;!&ndash;查询指定行数据&ndash;&gt;-->
+    <!--<select id="queryAllByLimit" resultMap="BaseResultMap">-->
+        <!--select-->
+          <!--id, sp_name, industry, enterprise_nature, bond_balance, latest_issuance_date, latest_bond_issue_code, latest_rating, rating_date, main_business_income, reporting_period, net_worth, net_worth_reporting_period, province, city, listed, build_date, registered_capital, number_employees, company_profile, largest_stockholder, nature_shareholders, registered_address, business_address, mobile, fax,  website_address, industry_1, industry_2, industry_3, industry_4, created_time, updated_time-->
+        <!--from jeecg-boot.bd_sp_info-->
+        <!--limit #{offset}, #{limit}-->
+    <!--</select>-->
+
+    <!--&lt;!&ndash;通过实体作为筛选条件查询&ndash;&gt;-->
+
+</mapper>

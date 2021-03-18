@@ -28,7 +28,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     @Excel(name = "发行人", width = 15)
     private String publisher;
     //ccxi行业
-    @Excel(name = "ccxi行业", width = 15)
+//    @Excel(name = "ccxi行业", width = 15)
     private String ccxiIndustry;
     //发行日期
     @Excel(name = "发行日期", width = 15,format = "yyyy-MM-dd")
@@ -88,7 +88,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     @Excel(name = "最新评级展望", width = 15)
     private String latestRatingOutlook;
     //发行时债项等级
-    @Excel(name = "发行时债项等级", width = 15)
+//    @Excel(name = "发行时债项等级", width = 15)
     private String publishLevel;
     //最新债项等级
     @Excel(name = "最新债项等级", width = 15)

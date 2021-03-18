@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.ext.mapper.BdBondInfoMapper">
+
+    <resultMap id="BaseResultMap" type="org.jeecg.modules.ext.entity.BdBondInfo">
+        <!--@Table bd_bond_info-->
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="transactionCode" column="transaction_code" jdbcType="VARCHAR"/>
+        <result property="bondShortName" column="bond_short_name" jdbcType="VARCHAR"/>
+        <result property="bondFullName" column="bond_full_name" jdbcType="VARCHAR"/>
+        <result property="publisher" column="publisher" jdbcType="VARCHAR"/>
+        <result property="ccxiIndustry" column="ccxi_industry" jdbcType="VARCHAR"/>
+        <result property="publishDate" column="publish_date" jdbcType="TIMESTAMP"/>
+        <result property="valueDate" column="value_date" jdbcType="TIMESTAMP"/>
+        <result property="expireDate" column="expire_date" jdbcType="TIMESTAMP"/>
+        <result property="releaseDeadline" column="release_deadline" jdbcType="NUMERIC"/>
+        <result property="offerAmount" column="offer_amount" jdbcType="NUMERIC"/>
+        <result property="currentBalance" column="current_balance" jdbcType="NUMERIC"/>
+        <result property="couponRate" column="coupon_rate" jdbcType="NUMERIC"/>
+        <result property="varietiesRates" column="varieties_rates" jdbcType="VARCHAR"/>
+        <result property="bondsman" column="bondsman" jdbcType="VARCHAR"/>
+        <result property="specificItems" column="specific_items" jdbcType="VARCHAR"/>
+        <result property="backDate" column="back_date" jdbcType="VARCHAR"/>
+        <result property="nextRowRightDay" column="next_row_right_day" jdbcType="VARCHAR"/>
+        <result property="varietiesBonds" column="varieties_bonds" jdbcType="VARCHAR"/>
+        <result property="listingLocation" column="listing_location" jdbcType="VARCHAR"/>
+        <result property="leadUnderwriter" column="lead_underwriter" jdbcType="VARCHAR"/>
+        <result property="ratingFirms" column="rating_firms" jdbcType="VARCHAR"/>
+        <result property="creditLevel" column="credit_level" jdbcType="VARCHAR"/>
+        <result property="latestBody" column="latest_body" jdbcType="VARCHAR"/>
+        <result property="latestRatingOutlook" column="latest_rating_outlook" jdbcType="VARCHAR"/>
+        <result property="publishLevel" column="publish_level" jdbcType="VARCHAR"/>
+        <result property="latestLevel" column="latest_level" jdbcType="VARCHAR"/>
+        <result property="payOrder" column="pay_order" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+        <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+        <result property="spId" column="sp_id" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="SpInfoStaticsMap" type="org.jeecg.modules.ext.vo.SpInfoStaticsVO">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="spName" column="sp_name" jdbcType="VARCHAR"/>
+        <result property="industry" column="industry" jdbcType="VARCHAR"/>
+        <result property="enterpriseNature" column="enterprise_nature" jdbcType="VARCHAR"/>
+        <result property="bondBalance" column="bond_balance" jdbcType="VARCHAR"/>
+        <result property="latestIssuanceDate" column="latest_issuance_date" jdbcType="TIMESTAMP"/>
+        <result property="latestBondIssueCode" column="latest_bond_issue_code" jdbcType="VARCHAR"/>
+        <result property="latestRating" column="latest_rating" jdbcType="VARCHAR"/>
+        <result property="ratingDate" column="rating_date" jdbcType="TIMESTAMP"/>
+        <result property="mainBusinessIncome" column="main_business_income" jdbcType="VARCHAR"/>
+        <result property="reportingPeriod" column="reporting_period" jdbcType="TIMESTAMP"/>
+        <result property="netWorth" column="net_worth" jdbcType="VARCHAR"/>
+        <result property="netWorthReportingPeriod" column="net_worth_reporting_period" jdbcType="TIMESTAMP"/>
+        <result property="province" column="province" jdbcType="VARCHAR"/>
+        <result property="city" column="city" jdbcType="VARCHAR"/>
+        <result property="listed" column="listed" jdbcType="VARCHAR"/>
+        <result property="buildDate" column="build_date" jdbcType="VARCHAR"/>
+        <result property="registeredCapital" column="registered_capital" jdbcType="VARCHAR"/>
+        <result property="numberEmployees" column="number_employees" jdbcType="INTEGER"/>
+        <result property="companyProfile" column="company_profile" jdbcType="VARCHAR"/>
+        <result property="largestStockholder" column="largest_stockholder" jdbcType="VARCHAR"/>
+        <result property="natureShareholders" column="nature_shareholders" jdbcType="VARCHAR"/>
+        <result property="registeredAddress" column="registered_address" jdbcType="VARCHAR"/>
+        <result property="businessAddress" column="business_address" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="fax" column="fax" jdbcType="VARCHAR"/>
+        <result property="websiteAddress" column="website_address" jdbcType="VARCHAR"/>
+        <result property="industry1" column="industry1" jdbcType="VARCHAR"/>
+        <result property="industry2" column="industry2" jdbcType="VARCHAR"/>
+        <result property="industry3" column="industry3" jdbcType="VARCHAR"/>
+        <result property="industry4" column="industry4" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+        <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <select id="getSpInfoStaticsList" parameterType="org.jeecg.modules.ext.query.SpInfoStaticsQuery"
+            resultMap="SpInfoStaticsMap">
+        SELECT
+        s.*,
+        count(b.id) bond_num,
+        sum(b.current_balance) currentBalance
+        FROM
+        bd_sp_info s
+        LEFT JOIN bd_bond_info b on s.id=b.sp_id
+        WHERE DATE_FORMAT(b.expire_date,'%Y-%m-%d') > DATE_FORMAT(now(),'%Y-%m-%d')
+        <if test="spName != null and spName != ''">
+            and sp_name like concat('%',#{spName},'%')
+        </if>
+        <if test="industry != null and industry != ''">
+            and industry like concat('%',#{industry},'%')
+        </if>
+        GROUP BY s.id
+        limit #{offSet}, #{pageSize}
+    </select>
+    <select id="getSpInfoStaticsCount" parameterType="org.jeecg.modules.ext.query.SpInfoStaticsQuery" resultType="long">
+        SELECT count(1) from (
+        SELECT
+        s.id
+        FROM
+        bd_sp_info s
+        LEFT JOIN bd_bond_info b on s.id=b.sp_id
+        WHERE DATE_FORMAT(b.expire_date,'%Y-%m-%d') > DATE_FORMAT(now(),'%Y-%m-%d')
+        <if test="spName != null and spName != ''">
+            and sp_name like concat('%',#{spName},'%')
+        </if>
+        <if test="industry != null and industry != ''">
+            and industry like concat('%',#{industry},'%')
+        </if>
+        <if test="untilDate!=null">
+            DATE_FORMAT(b.expire_date,'%Y-%m-%d') &lt;= DATE_FORMAT(untilDate,'%Y-%m-%d')
+        </if>
+        GROUP BY s.id
+        ) a
+    </select>
+    <select id="getBondInfoList" resultType="org.jeecg.modules.ext.vo.BondInfoVO"
+            parameterType="org.jeecg.modules.ext.query.BondInfoQuery">
+        SELECT
+        b.*,s.latest_rating,s.latest_issuance_date,s.sp_name,s.industry,s.enterprise_nature
+        FROM
+        bd_sp_info s
+        LEFT JOIN bd_bond_info b ON s.id = b.sp_id
+        WHERE DATE_FORMAT(b.expire_date,'%Y-%m-%d') > DATE_FORMAT(now(),'%Y-%m-%d')
+        <if test="spName != null and spName != ''">
+            and sp_name like concat('%',#{spName},'%')
+        </if>
+        <if test="industry != null and industry != ''">
+            and industry like concat('%',#{industry},'%')
+        </if>
+        <if test="untilDate!=null">
+            DATE_FORMAT(b.expire_date,'%Y-%m-%d') &lt;= DATE_FORMAT(untilDate,'%Y-%m-%d')
+        </if>
+        limit #{offSet}, #{pageSize}
+    </select>
+    <select id="getBondInfoCount" parameterType="org.jeecg.modules.ext.query.BondInfoQuery" resultType="long">
+        SELECT
+        count(s.id)
+        FROM
+        bd_sp_info s
+        LEFT JOIN bd_bond_info b ON s.id = b.sp_id
+        WHERE DATE_FORMAT(b.expire_date,'%Y-%m-%d') > DATE_FORMAT(now(),'%Y-%m-%d')
+        <if test="spName != null and spName != ''">
+            and sp_name like concat('%',#{spName},'%')
+        </if>
+        <if test="industry != null and industry != ''">
+            and industry like concat('%',#{industry},'%')
+        </if>
+        <if test="untilDate!=null">
+            DATE_FORMAT(b.expire_date,'%Y-%m-%d') &lt;= DATE_FORMAT(untilDate,'%Y-%m-%d')
+        </if>
+    </select>
+    <!--&lt;!&ndash;通过实体作为筛选条件查询&ndash;&gt;-->
+    <!--<select id="queryAll" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--id, transaction_code, bond_short_name, bond_full_name, publisher, ccxi_industry, publish_date, value_date, expire_date, release_deadline, offer_amount, current_balance, coupon_rate, varieties_rates, bondsman, specific_items, back_date, next_row_right_day, varieties_bonds, listing_location, lead_underwriter, rating_firms, credit_level, latest_body, latest_rating_outlook, publish_level, latest_level, pay_order, created_time, updated_time, sp_id-->
+    <!--from jeecg-boot.bd_bond_info-->
+    <!--<where>-->
+    <!--<if test="id != null">-->
+    <!--and id = #{id}-->
+    <!--</if>-->
+    <!--<if test="transactionCode != null and transactionCode != ''">-->
+    <!--and transaction_code = #{transactionCode}-->
+    <!--</if>-->
+    <!--<if test="bondShortName != null and bondShortName != ''">-->
+    <!--and bond_short_name = #{bondShortName}-->
+    <!--</if>-->
+    <!--<if test="bondFullName != null and bondFullName != ''">-->
+    <!--and bond_full_name = #{bondFullName}-->
+    <!--</if>-->
+    <!--<if test="publisher != null and publisher != ''">-->
+    <!--and publisher = #{publisher}-->
+    <!--</if>-->
+    <!--<if test="ccxiIndustry != null and ccxiIndustry != ''">-->
+    <!--and ccxi_industry = #{ccxiIndustry}-->
+    <!--</if>-->
+    <!--<if test="publishDate != null">-->
+    <!--and publish_date = #{publishDate}-->
+    <!--</if>-->
+    <!--<if test="valueDate != null">-->
+    <!--and value_date = #{valueDate}-->
+    <!--</if>-->
+    <!--<if test="expireDate != null">-->
+    <!--and expire_date = #{expireDate}-->
+    <!--</if>-->
+    <!--<if test="releaseDeadline != null">-->
+    <!--and release_deadline = #{releaseDeadline}-->
+    <!--</if>-->
+    <!--<if test="offerAmount != null">-->
+    <!--and offer_amount = #{offerAmount}-->
+    <!--</if>-->
+    <!--<if test="currentBalance != null">-->
+    <!--and current_balance = #{currentBalance}-->
+    <!--</if>-->
+    <!--<if test="couponRate != null">-->
+    <!--and coupon_rate = #{couponRate}-->
+    <!--</if>-->
+    <!--<if test="varietiesRates != null and varietiesRates != ''">-->
+    <!--and varieties_rates = #{varietiesRates}-->
+    <!--</if>-->
+    <!--<if test="bondsman != null and bondsman != ''">-->
+    <!--and bondsman = #{bondsman}-->
+    <!--</if>-->
+    <!--<if test="specificItems != null and specificItems != ''">-->
+    <!--and specific_items = #{specificItems}-->
+    <!--</if>-->
+    <!--<if test="backDate != null and backDate != ''">-->
+    <!--and back_date = #{backDate}-->
+    <!--</if>-->
+    <!--<if test="nextRowRightDay != null and nextRowRightDay != ''">-->
+    <!--and next_row_right_day = #{nextRowRightDay}-->
+    <!--</if>-->
+    <!--<if test="varietiesBonds != null and varietiesBonds != ''">-->
+    <!--and varieties_bonds = #{varietiesBonds}-->
+    <!--</if>-->
+    <!--<if test="listingLocation != null and listingLocation != ''">-->
+    <!--and listing_location = #{listingLocation}-->
+    <!--</if>-->
+    <!--<if test="leadUnderwriter != null and leadUnderwriter != ''">-->
+    <!--and lead_underwriter = #{leadUnderwriter}-->
+    <!--</if>-->
+    <!--<if test="ratingFirms != null and ratingFirms != ''">-->
+    <!--and rating_firms = #{ratingFirms}-->
+    <!--</if>-->
+    <!--<if test="creditLevel != null and creditLevel != ''">-->
+    <!--and credit_level = #{creditLevel}-->
+    <!--</if>-->
+    <!--<if test="latestBody != null and latestBody != ''">-->
+    <!--and latest_body = #{latestBody}-->
+    <!--</if>-->
+    <!--<if test="latestRatingOutlook != null and latestRatingOutlook != ''">-->
+    <!--and latest_rating_outlook = #{latestRatingOutlook}-->
+    <!--</if>-->
+    <!--<if test="publishLevel != null and publishLevel != ''">-->
+    <!--and publish_level = #{publishLevel}-->
+    <!--</if>-->
+    <!--<if test="latestLevel != null and latestLevel != ''">-->
+    <!--and latest_level = #{latestLevel}-->
+    <!--</if>-->
+    <!--<if test="payOrder != null and payOrder != ''">-->
+    <!--and pay_order = #{payOrder}-->
+    <!--</if>-->
+    <!--<if test="createdTime != null">-->
+    <!--and created_time = #{createdTime}-->
+    <!--</if>-->
+    <!--<if test="updatedTime != null">-->
+    <!--and updated_time = #{updatedTime}-->
+    <!--</if>-->
+    <!--<if test="spId != null">-->
+    <!--and sp_id = #{spId}-->
+    <!--</if>-->
+    <!--</where>-->
+    <!--</select>-->
+
+    <!--&lt;!&ndash;新增所有列&ndash;&gt;-->
+    <!--<insert id="insert" keyProperty="id" useGeneratedKeys="true">-->
+    <!--insert into jeecg-boot.bd_bond_info(transaction_code, bond_short_name, bond_full_name, publisher, ccxi_industry, publish_date, value_date, expire_date, release_deadline, offer_amount, current_balance, coupon_rate, varieties_rates, bondsman, specific_items, back_date, next_row_right_day, varieties_bonds, listing_location, lead_underwriter, rating_firms, credit_level, latest_body, latest_rating_outlook, publish_level, latest_level, pay_order, created_time, updated_time, sp_id)-->
+    <!--values (#{transactionCode}, #{bondShortName}, #{bondFullName}, #{publisher}, #{ccxiIndustry}, #{publishDate}, #{valueDate}, #{expireDate}, #{releaseDeadline}, #{offerAmount}, #{currentBalance}, #{couponRate}, #{varietiesRates}, #{bondsman}, #{specificItems}, #{backDate}, #{nextRowRightDay}, #{varietiesBonds}, #{listingLocation}, #{leadUnderwriter}, #{ratingFirms}, #{creditLevel}, #{latestBody}, #{latestRatingOutlook}, #{publishLevel}, #{latestLevel}, #{payOrder}, #{createdTime}, #{updatedTime}, #{spId})-->
+    <!--</insert>-->
+
+    <!--&lt;!&ndash;通过主键修改数据&ndash;&gt;-->
+    <!--<update id="update">-->
+    <!--update jeecg-boot.bd_bond_info-->
+    <!--<set>-->
+    <!--<if test="transactionCode != null and transactionCode != ''">-->
+    <!--transaction_code = #{transactionCode},-->
+    <!--</if>-->
+    <!--<if test="bondShortName != null and bondShortName != ''">-->
+    <!--bond_short_name = #{bondShortName},-->
+    <!--</if>-->
+    <!--<if test="bondFullName != null and bondFullName != ''">-->
+    <!--bond_full_name = #{bondFullName},-->
+    <!--</if>-->
+    <!--<if test="publisher != null and publisher != ''">-->
+    <!--publisher = #{publisher},-->
+    <!--</if>-->
+    <!--<if test="ccxiIndustry != null and ccxiIndustry != ''">-->
+    <!--ccxi_industry = #{ccxiIndustry},-->
+    <!--</if>-->
+    <!--<if test="publishDate != null">-->
+    <!--publish_date = #{publishDate},-->
+    <!--</if>-->
+    <!--<if test="valueDate != null">-->
+    <!--value_date = #{valueDate},-->
+    <!--</if>-->
+    <!--<if test="expireDate != null">-->
+    <!--expire_date = #{expireDate},-->
+    <!--</if>-->
+    <!--<if test="releaseDeadline != null">-->
+    <!--release_deadline = #{releaseDeadline},-->
+    <!--</if>-->
+    <!--<if test="offerAmount != null">-->
+    <!--offer_amount = #{offerAmount},-->
+    <!--</if>-->
+    <!--<if test="currentBalance != null">-->
+    <!--current_balance = #{currentBalance},-->
+    <!--</if>-->
+    <!--<if test="couponRate != null">-->
+    <!--coupon_rate = #{couponRate},-->
+    <!--</if>-->
+    <!--<if test="varietiesRates != null and varietiesRates != ''">-->
+    <!--varieties_rates = #{varietiesRates},-->
+    <!--</if>-->
+    <!--<if test="bondsman != null and bondsman != ''">-->
+    <!--bondsman = #{bondsman},-->
+    <!--</if>-->
+    <!--<if test="specificItems != null and specificItems != ''">-->
+    <!--specific_items = #{specificItems},-->
+    <!--</if>-->
+    <!--<if test="backDate != null and backDate != ''">-->
+    <!--back_date = #{backDate},-->
+    <!--</if>-->
+    <!--<if test="nextRowRightDay != null and nextRowRightDay != ''">-->
+    <!--next_row_right_day = #{nextRowRightDay},-->
+    <!--</if>-->
+    <!--<if test="varietiesBonds != null and varietiesBonds != ''">-->
+    <!--varieties_bonds = #{varietiesBonds},-->
+    <!--</if>-->
+    <!--<if test="listingLocation != null and listingLocation != ''">-->
+    <!--listing_location = #{listingLocation},-->
+    <!--</if>-->
+    <!--<if test="leadUnderwriter != null and leadUnderwriter != ''">-->
+    <!--lead_underwriter = #{leadUnderwriter},-->
+    <!--</if>-->
+    <!--<if test="ratingFirms != null and ratingFirms != ''">-->
+    <!--rating_firms = #{ratingFirms},-->
+    <!--</if>-->
+    <!--<if test="creditLevel != null and creditLevel != ''">-->
+    <!--credit_level = #{creditLevel},-->
+    <!--</if>-->
+    <!--<if test="latestBody != null and latestBody != ''">-->
+    <!--latest_body = #{latestBody},-->
+    <!--</if>-->
+    <!--<if test="latestRatingOutlook != null and latestRatingOutlook != ''">-->
+    <!--latest_rating_outlook = #{latestRatingOutlook},-->
+    <!--</if>-->
+    <!--<if test="publishLevel != null and publishLevel != ''">-->
+    <!--publish_level = #{publishLevel},-->
+    <!--</if>-->
+    <!--<if test="latestLevel != null and latestLevel != ''">-->
+    <!--latest_level = #{latestLevel},-->
+    <!--</if>-->
+    <!--<if test="payOrder != null and payOrder != ''">-->
+    <!--pay_order = #{payOrder},-->
+    <!--</if>-->
+    <!--<if test="createdTime != null">-->
+    <!--created_time = #{createdTime},-->
+    <!--</if>-->
+    <!--<if test="updatedTime != null">-->
+    <!--updated_time = #{updatedTime},-->
+    <!--</if>-->
+    <!--<if test="spId != null">-->
+    <!--sp_id = #{spId},-->
+    <!--</if>-->
+    <!--</set>-->
+    <!--where id = #{id}-->
+    <!--</update>-->
+
+    <!--&lt;!&ndash;通过主键删除&ndash;&gt;-->
+    <!--<delete id="deleteById">-->
+    <!--delete from jeecg-boot.bd_bond_info where id = #{id}-->
+    <!--</delete>-->
+
+</mapper>

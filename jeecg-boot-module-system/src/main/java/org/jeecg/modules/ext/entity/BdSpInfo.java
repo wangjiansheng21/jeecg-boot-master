@@ -57,7 +57,7 @@ public class BdSpInfo extends Model<BdSpInfo> {
     @Excel(name = "所属省市", width = 15)
     private String province;
     //所属县市
-    @Excel(name = "属县市", width = 15)
+    @Excel(name = "所属县市", width = 15)
     private String city;
     //是否上市
     @Excel(name = "是否上市", width = 15)

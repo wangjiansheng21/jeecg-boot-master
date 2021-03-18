@@ -2,7 +2,10 @@ package org.jeecg.modules.ext.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.api.client.json.Json;
 import lombok.extern.slf4j.Slf4j;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.util.ImportExcelUtil;
@@ -10,11 +13,15 @@ import org.jeecg.modules.ext.entity.BdBondInfo;
 import org.jeecg.modules.ext.entity.BdSpInfo;
 import org.jeecg.modules.ext.mapper.BdBondInfoMapper;
 import org.jeecg.modules.ext.mapper.BdSpInfoMapper;
+import org.jeecg.modules.ext.query.BondInfoQuery;
+import org.jeecg.modules.ext.query.SpInfoStaticsQuery;
 import org.jeecg.modules.ext.service.IBdBondInfoService;
+import org.jeecg.modules.ext.vo.SpInfoStaticsVO;
 import org.jeecgframework.poi.excel.ExcelImportUtil;
 import org.jeecgframework.poi.excel.entity.ImportParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -72,9 +79,13 @@ public class BdBondInfoServiceImpl extends ServiceImpl<BdBondInfoMapper, BdBondI
                     }
                     spName2spId.put(bdSpInfo.getSpName(), bdSpInfo.getId());
                 }
+                params.setSheetNum(2);
                 List<BdBondInfo> bdBondInfoList = ExcelImportUtil.importExcel(file.getInputStream(), BdBondInfo.class, params);
                 Wrapper<BdBondInfo> bdBondInfoWrapper = new QueryWrapper<>();
                 for (BdBondInfo bdBondInfo : bdBondInfoList) {
+                    if (StringUtils.isEmpty(bdBondInfo.getTransactionCode())) {
+                        continue;
+                    }
                     bdBondInfoWrapper.clear();
                     bdSpInfoQueryWrapper.clear();
                     ((QueryWrapper<BdBondInfo>) bdBondInfoWrapper).eq("transaction_code", bdBondInfo.getTransactionCode())
@@ -88,6 +99,7 @@ public class BdBondInfoServiceImpl extends ServiceImpl<BdBondInfoMapper, BdBondI
                         BdSpInfo spInfo = bdSpInfoMapper.selectOne(bdSpInfoQueryWrapper);
                         if (spInfo != null) {
                             spName2spId.put(spInfo.getSpName(), spInfo.getId());
+                            spId = spInfo.getId();
                         }
                     }
                     if (bdBondInfoTmp == null) {
@@ -113,6 +125,36 @@ public class BdBondInfoServiceImpl extends ServiceImpl<BdBondInfoMapper, BdBondI
                 }
             }
         }
-        return ImportExcelUtil.imporReturnRes(errorLines, successLines, errorMessage);
+        return Result.OK();
+    }
+
+    @Override
+    public Result<?> getSpInfoStaticsList(SpInfoStaticsQuery spInfoStaticsQuery) {
+        log.info("getSpInfoStaticsList:{}", spInfoStaticsQuery.toString());
+        Result result = new Result();
+        IPage page = new Page(spInfoStaticsQuery.getPageNo(), spInfoStaticsQuery.getPageSize());
+        Long count = bdBondInfoMapper.getSpInfoStaticsCount(spInfoStaticsQuery);
+        page.setTotal(count);
+        //分页查询
+        List<SpInfoStaticsVO> spInfoStaticsList = bdBondInfoMapper.getSpInfoStaticsList(spInfoStaticsQuery);
+        page.setRecords(spInfoStaticsList);
+        page.setCurrent(spInfoStaticsQuery.getPageNo());
+        result.setResult(page);
+        return result;
+    }
+
+    @Override
+    public Result<?> getBondInfoList(BondInfoQuery bondInfoQuery) {
+        log.info("getBondInfoList:{}", bondInfoQuery);
+        Result result = new Result();
+        IPage page = new Page(bondInfoQuery.getPageNo(), bondInfoQuery.getPageSize());
+        Long count = bdBondInfoMapper.getBondInfoCount(bondInfoQuery);
+        page.setTotal(count);
+        //分页查询
+        List<SpInfoStaticsVO> spInfoStaticsList = bdBondInfoMapper.getBondInfoList(bondInfoQuery);
+        page.setRecords(spInfoStaticsList);
+        page.setCurrent(bondInfoQuery.getPageNo());
+        result.setResult(page);
+        return result;
     }
 }
