@@ -88,7 +88,7 @@
             and industry like concat('%',#{industry},'%')
         </if>
         <if test="untilDate!=null">
-            DATE_FORMAT(b.expire_date,'%Y-%m-%d') &lt;= DATE_FORMAT(#{untilDate},'%Y-%m-%d')
+            and  DATE_FORMAT(b.expire_date,'%Y-%m-%d') &lt;= DATE_FORMAT(#{untilDate},'%Y-%m-%d')
         </if>
         GROUP BY s.id
         limit #{offSet}, #{pageSize}
@@ -108,7 +108,7 @@
             and industry like concat('%',#{industry},'%')
         </if>
         <if test="untilDate!=null">
-            DATE_FORMAT(b.expire_date,'%Y-%m-%d') &lt;= DATE_FORMAT(#{untilDate},'%Y-%m-%d')
+            and DATE_FORMAT(b.expire_date,'%Y-%m-%d') &lt;= DATE_FORMAT(#{untilDate},'%Y-%m-%d')
         </if>
         GROUP BY s.id
         ) a
@@ -128,7 +128,7 @@
             and industry like concat('%',#{industry},'%')
         </if>
         <if test="untilDate!=null">
-            DATE_FORMAT(b.expire_date,'%Y-%m-%d') &lt;= DATE_FORMAT(#{untilDate},'%Y-%m-%d')
+            and DATE_FORMAT(b.expire_date,'%Y-%m-%d') &lt;= DATE_FORMAT(#{untilDate},'%Y-%m-%d')
         </if>
         limit #{offSet}, #{pageSize}
     </select>
@@ -146,7 +146,7 @@
             and industry like concat('%',#{industry},'%')
         </if>
         <if test="untilDate!=null">
-            DATE_FORMAT(b.expire_date,'%Y-%m-%d') &lt;= DATE_FORMAT(#{untilDate},'%Y-%m-%d')
+          and   DATE_FORMAT(b.expire_date,'%Y-%m-%d') &lt;= DATE_FORMAT(#{untilDate},'%Y-%m-%d')
         </if>
     </select>
     <!--&lt;!&ndash;通过实体作为筛选条件查询&ndash;&gt;-->
