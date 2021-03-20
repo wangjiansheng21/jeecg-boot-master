@@ -118,6 +118,7 @@ public class BdBondInfoServiceImpl extends ServiceImpl<BdBondInfoMapper, BdBondI
             } catch (Exception e) {
                 errorMessage.add("发生异常：" + e.getMessage());
                 log.error(e.getMessage(), e);
+                return Result.error("导入失败，请检查excel数据格式是否正确");
             } finally {
                 try {
                     file.getInputStream().close();
