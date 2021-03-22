@@ -2,6 +2,7 @@ package org.jeecg.modules.ext.entity;
 
 import java.util.Date;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
 import org.jeecgframework.poi.excel.annotation.Excel;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.io.Serializable;
  * @since 2021-03-17 20:35:50
  */
 @SuppressWarnings("serial")
+@Data
 public class BdSpInfo extends Model<BdSpInfo> {
     
     private Integer id;
@@ -22,6 +24,10 @@ public class BdSpInfo extends Model<BdSpInfo> {
     //所属行业
     @Excel(name = "所属行业", width = 15)
     private String industry;
+
+    @Excel(name = "风险程度", width = 15)
+    private String riskLevel;
+
     //企业性质
     @Excel(name = "企业性质", width = 15)
     private String enterpriseNature;
@@ -63,8 +69,8 @@ public class BdSpInfo extends Model<BdSpInfo> {
     @Excel(name = "是否上市", width = 15)
     private String listed;
     //成立日期
-    @Excel(name = "成立日期", width = 15)
-    private String buildDate;
+    @Excel(name = "成立日期", width = 15, format = "yyyy-MM-dd")
+    private Date buildDate;
     //注册资本(万元)
     @Excel(name = "注册资本(万元)", width = 15)
     private String registeredCapital;
@@ -243,14 +249,7 @@ public class BdSpInfo extends Model<BdSpInfo> {
     public void setListed(String listed) {
         this.listed = listed;
     }
-    
-    public String getBuildDate() {
-        return buildDate;
-    }
 
-    public void setBuildDate(String buildDate) {
-        this.buildDate = buildDate;
-    }
     
     public String getRegisteredCapital() {
         return registeredCapital;

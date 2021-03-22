@@ -1,7 +1,9 @@
 package org.jeecg.modules.ext.entity;
 
 import java.util.Date;
+
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
 import org.jeecgframework.poi.excel.annotation.Excel;
 
 import java.io.Serializable;
@@ -13,8 +15,9 @@ import java.io.Serializable;
  * @since 2021-03-17 20:36:54
  */
 @SuppressWarnings("serial")
+@Data
 public class BdBondInfo extends Model<BdBondInfo> {
-    
+
     private Integer id;
     @Excel(name = "交易代码", width = 15)
     private String transactionCode;
@@ -27,20 +30,32 @@ public class BdBondInfo extends Model<BdBondInfo> {
     //发行人
     @Excel(name = "发行人", width = 15)
     private String publisher;
+
+    @Excel(name = "风险程度", width = 15)
+    private String riskLevel;
     //ccxi行业
-//    @Excel(name = "ccxi行业", width = 15)
+    @Excel(name = "ccxi行业", width = 15)
     private String ccxiIndustry;
     //发行日期
-    @Excel(name = "发行日期", width = 15,format = "yyyy-MM-dd")
+    @Excel(name = "发行日期", width = 15, format = "yyyy-MM-dd")
     private Date publishDate;
     //气息日
-    @Excel(name = "起息日", width = 15,format = "yyyy-MM-dd")
+    @Excel(name = "起息日", width = 15, format = "yyyy-MM-dd")
     private Date valueDate;
+
+    //最近日期
+    @Excel(name = "最近日期", width = 15, format = "yyyy-MM-dd")
+    private Date latestDate;
+
+    //债券状态
+    @Excel(name = "债券状态", width = 15)
+    private String bondStatus;
+
     //到期日
-    @Excel(name = "到期日期", width = 15,format = "yyyy-MM-dd")
+    @Excel(name = "到期日期", width = 15, format = "yyyy-MM-dd")
     private Date expireDate;
     //发行期限
-    @Excel(name = "发行期限", width = 15,format = "yyyy-MM-dd")
+    @Excel(name = "发行期限", width = 15, format = "yyyy-MM-dd")
     private Double releaseDeadline;
     //发行总额
     @Excel(name = "发行总额", width = 15)
@@ -61,11 +76,11 @@ public class BdBondInfo extends Model<BdBondInfo> {
     @Excel(name = "特殊条款", width = 15)
     private String specificItems;
     //回售日
-    @Excel(name = "回售日", width = 15)
-    private String backDate;
+    @Excel(name = "回售日", width = 15, format = "yyyy-MM-dd")
+    private Date backDate;
     //下一行权日
-    @Excel(name = "下一行权日", width = 15)
-    private String nextRowRightDay;
+    @Excel(name = "下一行权日", width = 15, format = "yyyy-MM-dd")
+    private Date nextRowRightDay;
     //债券品种
     @Excel(name = "债券品种", width = 15)
     private String varietiesBonds;
@@ -88,7 +103,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     @Excel(name = "最新评级展望", width = 15)
     private String latestRatingOutlook;
     //发行时债项等级
-//    @Excel(name = "发行时债项等级", width = 15)
+    @Excel(name = "发行时债项等级", width = 15)
     private String publishLevel;
     //最新债项等级
     @Excel(name = "最新债项等级", width = 15)
@@ -96,14 +111,14 @@ public class BdBondInfo extends Model<BdBondInfo> {
     //偿付顺序
     @Excel(name = "偿付顺序", width = 15)
     private String payOrder;
-    
+
     private Date createdTime;
-    
+
     private Date updatedTime;
     //企业客户id
     private Integer spId;
 
-    
+
     public Integer getId() {
         return id;
     }
@@ -111,7 +126,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
     public String getTransactionCode() {
         return transactionCode;
     }
@@ -119,7 +134,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setTransactionCode(String transactionCode) {
         this.transactionCode = transactionCode;
     }
-    
+
     public String getBondShortName() {
         return bondShortName;
     }
@@ -127,7 +142,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setBondShortName(String bondShortName) {
         this.bondShortName = bondShortName;
     }
-    
+
     public String getBondFullName() {
         return bondFullName;
     }
@@ -135,7 +150,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setBondFullName(String bondFullName) {
         this.bondFullName = bondFullName;
     }
-    
+
     public String getPublisher() {
         return publisher;
     }
@@ -143,7 +158,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
-    
+
     public String getCcxiIndustry() {
         return ccxiIndustry;
     }
@@ -151,7 +166,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setCcxiIndustry(String ccxiIndustry) {
         this.ccxiIndustry = ccxiIndustry;
     }
-    
+
     public Date getPublishDate() {
         return publishDate;
     }
@@ -159,7 +174,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
     }
-    
+
     public Date getValueDate() {
         return valueDate;
     }
@@ -167,7 +182,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setValueDate(Date valueDate) {
         this.valueDate = valueDate;
     }
-    
+
     public Date getExpireDate() {
         return expireDate;
     }
@@ -175,7 +190,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setExpireDate(Date expireDate) {
         this.expireDate = expireDate;
     }
-    
+
     public Double getReleaseDeadline() {
         return releaseDeadline;
     }
@@ -183,7 +198,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setReleaseDeadline(Double releaseDeadline) {
         this.releaseDeadline = releaseDeadline;
     }
-    
+
     public Double getOfferAmount() {
         return offerAmount;
     }
@@ -191,7 +206,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setOfferAmount(Double offerAmount) {
         this.offerAmount = offerAmount;
     }
-    
+
     public Double getCurrentBalance() {
         return currentBalance;
     }
@@ -199,7 +214,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setCurrentBalance(Double currentBalance) {
         this.currentBalance = currentBalance;
     }
-    
+
     public Double getCouponRate() {
         return couponRate;
     }
@@ -207,7 +222,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setCouponRate(Double couponRate) {
         this.couponRate = couponRate;
     }
-    
+
     public String getVarietiesRates() {
         return varietiesRates;
     }
@@ -215,7 +230,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setVarietiesRates(String varietiesRates) {
         this.varietiesRates = varietiesRates;
     }
-    
+
     public String getBondsman() {
         return bondsman;
     }
@@ -223,7 +238,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setBondsman(String bondsman) {
         this.bondsman = bondsman;
     }
-    
+
     public String getSpecificItems() {
         return specificItems;
     }
@@ -231,23 +246,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setSpecificItems(String specificItems) {
         this.specificItems = specificItems;
     }
-    
-    public String getBackDate() {
-        return backDate;
-    }
 
-    public void setBackDate(String backDate) {
-        this.backDate = backDate;
-    }
-    
-    public String getNextRowRightDay() {
-        return nextRowRightDay;
-    }
-
-    public void setNextRowRightDay(String nextRowRightDay) {
-        this.nextRowRightDay = nextRowRightDay;
-    }
-    
     public String getVarietiesBonds() {
         return varietiesBonds;
     }
@@ -255,7 +254,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setVarietiesBonds(String varietiesBonds) {
         this.varietiesBonds = varietiesBonds;
     }
-    
+
     public String getListingLocation() {
         return listingLocation;
     }
@@ -263,7 +262,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setListingLocation(String listingLocation) {
         this.listingLocation = listingLocation;
     }
-    
+
     public String getLeadUnderwriter() {
         return leadUnderwriter;
     }
@@ -271,7 +270,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setLeadUnderwriter(String leadUnderwriter) {
         this.leadUnderwriter = leadUnderwriter;
     }
-    
+
     public String getRatingFirms() {
         return ratingFirms;
     }
@@ -279,7 +278,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setRatingFirms(String ratingFirms) {
         this.ratingFirms = ratingFirms;
     }
-    
+
     public String getCreditLevel() {
         return creditLevel;
     }
@@ -287,7 +286,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setCreditLevel(String creditLevel) {
         this.creditLevel = creditLevel;
     }
-    
+
     public String getLatestBody() {
         return latestBody;
     }
@@ -295,7 +294,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setLatestBody(String latestBody) {
         this.latestBody = latestBody;
     }
-    
+
     public String getLatestRatingOutlook() {
         return latestRatingOutlook;
     }
@@ -303,7 +302,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setLatestRatingOutlook(String latestRatingOutlook) {
         this.latestRatingOutlook = latestRatingOutlook;
     }
-    
+
     public String getPublishLevel() {
         return publishLevel;
     }
@@ -311,7 +310,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setPublishLevel(String publishLevel) {
         this.publishLevel = publishLevel;
     }
-    
+
     public String getLatestLevel() {
         return latestLevel;
     }
@@ -319,7 +318,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setLatestLevel(String latestLevel) {
         this.latestLevel = latestLevel;
     }
-    
+
     public String getPayOrder() {
         return payOrder;
     }
@@ -327,7 +326,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setPayOrder(String payOrder) {
         this.payOrder = payOrder;
     }
-    
+
     public Date getCreatedTime() {
         return createdTime;
     }
@@ -335,7 +334,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
     }
-    
+
     public Date getUpdatedTime() {
         return updatedTime;
     }
@@ -343,7 +342,7 @@ public class BdBondInfo extends Model<BdBondInfo> {
     public void setUpdatedTime(Date updatedTime) {
         this.updatedTime = updatedTime;
     }
-    
+
     public Integer getSpId() {
         return spId;
     }
@@ -361,4 +360,4 @@ public class BdBondInfo extends Model<BdBondInfo> {
     protected Serializable pkVal() {
         return this.id;
     }
-    }
+}

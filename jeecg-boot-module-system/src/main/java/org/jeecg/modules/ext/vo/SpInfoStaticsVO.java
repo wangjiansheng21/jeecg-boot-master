@@ -19,6 +19,9 @@ public class SpInfoStaticsVO {
     //所属行业
     @Excel(name = "所属行业", width = 15)
     private String industry;
+
+    @Excel(name = "风险程度", width = 15)
+    private String riskLevel;
     //企业性质
     @Excel(name = "企业性质", width = 15)
     private String enterpriseNature;
@@ -27,7 +30,7 @@ public class SpInfoStaticsVO {
     //债券余额(亿元)
     private String bondBalance;
     //最新发债日
-    @Excel(name = "最新发债日", width = 15,format = "yyyy-MM-dd")
+    @Excel(name = "最新发债日", width = 15, format = "yyyy-MM-dd")
     private Date latestIssuanceDate;
     //最新发行债券代码
     @Excel(name = "最新发行债券代码", width = 15)
@@ -36,19 +39,19 @@ public class SpInfoStaticsVO {
     @Excel(name = "最新评级", width = 15)
     private String latestRating;
     //评级日
-    @Excel(name = "评级日", width = 15,format = "yyyy-MM-dd")
+    @Excel(name = "评级日", width = 15, format = "yyyy-MM-dd")
     private Date ratingDate;
     //主营业务收入(万元)
     @Excel(name = "主营业务收入(万元)", width = 15)
     private String mainBusinessIncome;
     //主营报告期
-    @Excel(name = "主营报告期", width = 15,format = "yyyy-MM-dd")
+    @Excel(name = "主营报告期", width = 15, format = "yyyy-MM-dd")
     private Date reportingPeriod;
     //净资产(万元)
     @Excel(name = "净资产(万元)", width = 15)
     private String netWorth;
     //净资产报告期
-    @Excel(name = "净资产报告期", width = 15,format = "yyyy-MM-dd")
+    @Excel(name = "净资产报告期", width = 15, format = "yyyy-MM-dd")
     private Date netWorthReportingPeriod;
     //所属省市
     @Excel(name = "所属省市", width = 15)
@@ -60,8 +63,8 @@ public class SpInfoStaticsVO {
     @Excel(name = "是否上市", width = 15)
     private String listed;
     //成立日期
-    @Excel(name = "成立日期", width = 15)
-    private String buildDate;
+    @Excel(name = "成立日期", width = 15, format = "yyyy-MM-dd")
+    private Date buildDate;
     //注册资本(万元)
     @Excel(name = "注册资本(万元)", width = 15)
     private String registeredCapital;
@@ -93,7 +96,7 @@ public class SpInfoStaticsVO {
     private String fax;
     @Excel(name = "公司网址", width = 15)
     //公司网址
-    private String  websiteAddress;
+    private String websiteAddress;
     @Excel(name = "所属行业一级", width = 15)
     //所属行业一级
     private String industry1;
@@ -117,7 +120,7 @@ public class SpInfoStaticsVO {
 
     private Date createdTime;
 
-    @Excel(name = "更新时间", width = 15,format = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "更新时间", width = 15, format = "yyyy-MM-dd HH:mm:ss")
     private Date updatedTime;
 
 }

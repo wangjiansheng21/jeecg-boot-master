@@ -35,6 +35,10 @@ public class BondInfoVO {
     //发行人
     @Excel(name = "发行人", width = 15)
     private String publisher;
+
+    @Excel(name = "风险程度", width = 15)
+    private String riskLevel;
+
     //ccxi行业
     @Excel(name = "ccxi行业", width = 15)
     private String ccxiIndustry;
@@ -44,6 +48,13 @@ public class BondInfoVO {
     //气息日
     @Excel(name = "起息日", width = 15, format = "yyyy-MM-dd")
     private Date valueDate;
+    //最近日期
+    @Excel(name = "最近日期", width = 15, format = "yyyy-MM-dd")
+    private Date latestDate;
+
+    //债券状态
+    @Excel(name = "债券状态", width = 15)
+    private String bondStatus;
     //到期日
     @Excel(name = "到期日期", width = 15, format = "yyyy-MM-dd")
     private Date expireDate;
@@ -69,11 +80,11 @@ public class BondInfoVO {
     @Excel(name = "特殊条款", width = 15)
     private String specificItems;
     //回售日
-    @Excel(name = "回售日", width = 15)
-    private String backDate;
+    @Excel(name = "回售日", width = 15, format = "yyyy-MM-dd")
+    private Date backDate;
     //下一行权日
-    @Excel(name = "下一行权日", width = 15)
-    private String nextRowRightDay;
+    @Excel(name = "下一行权日", width = 15, format = "yyyy-MM-dd")
+    private Date nextRowRightDay;
     //债券品种
     @Excel(name = "债券品种", width = 15)
     private String varietiesBonds;
